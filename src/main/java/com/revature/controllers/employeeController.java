@@ -17,8 +17,7 @@ public class employeeController implements HttpHandler {
             case "POST":
                 postRequest(exchange);
                 break;
-            case "PUT":
-                putRequest(exchange);
+            case "":
                 break;
             default:
                 
@@ -47,10 +46,5 @@ public class employeeController implements HttpHandler {
         os.write(textBuilder.toString().getBytes());
         os.close();
 
-    }
-
-    public void putRequest(HttpExchange exchange) throws IOException {
-        
-    }
-    
+    }    
 }
