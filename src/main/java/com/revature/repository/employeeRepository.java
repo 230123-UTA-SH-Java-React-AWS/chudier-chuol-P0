@@ -28,6 +28,7 @@ public class employeeRepository {
             FileWriter writer = new FileWriter("./src/main/java/com/revature/repository/employee.json");
             writer.write(jsonObject);
             writer.close();
+            
         } catch(JsonGenerationException e) {
              e.printStackTrace();
         } catch(JsonMappingException e) {

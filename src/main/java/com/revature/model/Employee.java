@@ -1,5 +1,6 @@
 package com.revature.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Employee {
@@ -8,6 +9,10 @@ public class Employee {
     private String password;
 
     private List <reimbursementRequest> tickets;
+
+    public Employee() {
+        this.tickets = new ArrayList<>();
+    }
 
     public String getEmail() {
         return email;
@@ -31,10 +36,6 @@ public class Employee {
 
     public void setTickets(List <reimbursementRequest> tickets) {
         this.tickets = tickets;
-    }
-
-    void login() {
-        //
     }
 
 }
