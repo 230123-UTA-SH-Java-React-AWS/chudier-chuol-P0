@@ -9,7 +9,7 @@ public class Employee {
     private String email;
     private String password;
 
-    private List <reimbursementRequest> tickets;
+    private List <Ticket> tickets;
 
     public Employee() {
         this.tickets = new ArrayList<>();
@@ -39,11 +39,11 @@ public class Employee {
         this.password = password;
     }
 
-    public List <reimbursementRequest> getTickets() {
+    public List <Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(List <reimbursementRequest> tickets) {
+    public void setTickets(List <Ticket> tickets) {
         this.tickets = tickets;
     }
 

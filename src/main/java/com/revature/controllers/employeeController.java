@@ -4,7 +4,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import com.revature.service.employeeService;
+import com.revature.service.authService;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -43,8 +43,8 @@ public class employeeController implements HttpHandler {
 
         exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);
 
-        employeeService service = new employeeService();
-        service.saveEmployee(textBuilder.toString());
+        authService service = new authService();
+        service.employeeRegister(textBuilder.toString());
 
         OutputStream os = exchange.getResponseBody();
         os.write(textBuilder.toString().getBytes());

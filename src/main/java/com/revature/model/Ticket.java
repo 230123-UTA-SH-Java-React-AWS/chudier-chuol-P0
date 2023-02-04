@@ -1,6 +1,6 @@
 package com.revature.model;
 
-public class reimbursementRequest {
+public class Ticket {
     
     private int amount;
     private String description;
@@ -23,8 +23,4 @@ public class reimbursementRequest {
         this.description = description;
     }
 
-    void submitTicket() {
-
-    }
-    
 }

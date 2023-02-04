@@ -1,11 +1,7 @@
 package com.revature.model;
 
-public class Manager extends Employee implements ticketingSystem {
+public class Manager extends Employee {
     
     boolean isManager = true;
-
-    @Override
-    public void processTicket() {
-        
-    }
+    
 }
