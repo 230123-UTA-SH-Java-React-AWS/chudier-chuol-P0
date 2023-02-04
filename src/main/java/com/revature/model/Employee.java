@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Employee {
     
+    private int employeeid;
     private String email;
     private String password;
 
@@ -12,6 +13,14 @@ public class Employee {
 
     public Employee() {
         this.tickets = new ArrayList<>();
+    }
+
+    public int getEmployeeid() {
+        return employeeid;
+    }
+
+    public void setEmployeeid(int employeeid) {
+        this.employeeid = employeeid;
     }
 
     public String getEmail() {

@@ -19,7 +19,9 @@ public class connectionUtil {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Exception was thrown in the util package agent Chudier");
         } 
+        
         String url, user, pass;
        
         url = System.getenv("url");
@@ -33,8 +35,7 @@ public class connectionUtil {
             System.out.println("Agent Chudier, you may have provided the wrong creditentials");
         }
 
-        return null;
-    };
+        return con;
+    }
 
-    
 }

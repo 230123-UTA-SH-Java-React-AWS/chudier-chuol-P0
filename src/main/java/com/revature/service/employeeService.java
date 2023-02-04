@@ -9,6 +9,9 @@ import com.revature.model.Employee;
 import com.revature.repository.employeeRepository;
 
 public class employeeService {
+   
+    private final employeeRepository repo = new employeeRepository();
+    private final ObjectMapper mapper = new ObjectMapper();
     
 
     public void login() {
@@ -16,9 +19,7 @@ public class employeeService {
     }
 
     public void saveEmployee(String employeeJson) {
-        employeeRepository repo = new employeeRepository();
-
-        ObjectMapper mapper = new ObjectMapper();
+        
 
         try {
             Employee newEmployee = mapper.readValue(employeeJson, Employee.class);

@@ -6,8 +6,6 @@ import com.sun.net.httpserver.HttpServer;
 
 import com.revature.controllers.*;
 
-import com.revature.utils.connectionUtil;
-
 public final class App {
     private App() {
     }
