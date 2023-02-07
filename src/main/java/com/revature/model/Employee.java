@@ -10,9 +10,15 @@ public class Employee {
     private String password;
 
     private List <Ticket> tickets;
-
+    
     public Employee() {
         this.tickets = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Employee [employeeid=" + employeeid + ", email=" + email + ", password=" + password + ", tickets="
+                + tickets + "]";
     }
 
     public int getEmployeeid() {
