@@ -1,12 +1,30 @@
 package com.revature.service;
 
+import java.io.IOException;
+
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import com.revature.model.Manager;
+import com.revature.repository.managerRepository;
+
 public class managerService {
     
-    public void login() {
-        // needs to know when it is a manager that loged in because they're the only ones that can view ALL tickets
-    }
+    private final managerRepository repo = new managerRepository();
+    private final ObjectMapper mapper = new ObjectMapper();
+    
+    public void managerRegister(String managerJson) {
+        
+        try {
+           Manager newManager = mapper.readValue(managerJson, Manager.class);
 
-    public void processTicket() {
-        //need to query ALL(*) pending tickets  
+           repo.saveManager(newManager);
+
+        } catch(JsonParseException e) {
+            e.printStackTrace();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
+    
 }

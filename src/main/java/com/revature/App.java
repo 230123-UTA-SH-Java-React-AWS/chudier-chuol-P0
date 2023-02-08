@@ -1,16 +1,11 @@
 package com.revature;
 
 import java.net.InetSocketAddress;
-import java.util.Arrays;
-import java.util.List;
 
 import com.sun.net.httpserver.HttpServer;
 
 import com.revature.controllers.*;
-import com.revature.model.Employee;
-import com.revature.model.Ticket;
-import com.revature.repository.authRepository;
-import com.revature.repository.ticketRepository;
+
 
 public final class App {
     private App() {
@@ -23,15 +18,10 @@ public final class App {
 
         server.createContext("/employee", new employeeController());
         server.createContext("/employee/tickets", new ticketController());
+        server.createContext("/manager", new managerController());
         
         server.setExecutor(null);
         server.start();
-
-        // ticketRepository tickets = new ticketRepository();
-
-        // List<Ticket> getTickets = tickets.getAllTickets();
-
-        // System.out.print(getTickets);
 
     }
 }
