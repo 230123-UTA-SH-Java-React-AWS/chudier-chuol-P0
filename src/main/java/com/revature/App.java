@@ -27,5 +27,11 @@ public final class App {
         server.setExecutor(null);
         server.start();
 
+        // ticketRepository tickets = new ticketRepository();
+
+        // List<Ticket> getTickets = tickets.getAllTickets();
+
+        // System.out.print(getTickets);
+
     }
 }

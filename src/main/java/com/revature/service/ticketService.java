@@ -1,7 +1,10 @@
 package com.revature.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.revature.model.Ticket;
@@ -23,5 +26,23 @@ public class ticketService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String getAllTickets() {
+        List<Ticket> listOfTicks = repo.getAllTickets();
+        
+        String ticketJson = "";
+
+        try {
+            ticketJson = mapper.writeValueAsString(listOfTicks);
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return ticketJson;
     }
 }

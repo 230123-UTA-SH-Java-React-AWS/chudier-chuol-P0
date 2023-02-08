@@ -24,10 +24,21 @@ public class ticketController implements HttpHandler {
                 postRequest(exchange);
                 break;
             case "GET":
+                getRequest(exchange);
                 break;
             default:
                 
         }
+    }
+
+    public void getRequest(HttpExchange exchange) throws IOException {
+        String ticketListJson = service.getAllTickets();
+
+        exchange.sendResponseHeaders(200, ticketListJson.getBytes().length);
+
+        OutputStream os = exchange.getResponseBody();
+        os.write(ticketListJson.getBytes());
+        os.close();
     }
 
     public void postRequest(HttpExchange exchange) throws IOException {
@@ -43,12 +54,7 @@ public class ticketController implements HttpHandler {
                 textBuilder.append((char)letter);
             }
         }
-        // {
-        //     "amount": 321,
-        //     "description": "ski trip",
-        //     "employee_id": 3
-        // }
-
+        
         System.out.println(textBuilder.toString());
         
         exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);

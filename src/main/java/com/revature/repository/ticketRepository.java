@@ -29,40 +29,36 @@ public class ticketRepository {
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Exception was thrown in the ticket repository package agent Chudier");
         }
     }
 
-    // public List<Ticket> viewTickets() {
+    public List<Ticket> getAllTickets() {
         
-    //     String sql = "select * from tickets";
+        String sql = "select * from tickets where status = 'Pending'";
 
-    //     List<Ticket> listOfTickets = new ArrayList<>();
+        List<Ticket> listOfTickets = new ArrayList<>();
 
-    //     try (Connection con = connectionUtil.getConnection()) {
+        try (Connection con = connectionUtil.getConnection()) {
             
-    //         Statement stmt = con.createStatement();
+            Statement stmt = con.createStatement();
 
-    //         ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery(sql);
 
-    //         //mapping information from a table to a data structure instead
+            while(rs.next()) {
+                Ticket newTicket = new Ticket();
+                
+                newTicket.setAmount(rs.getInt("amount"));
+                newTicket.setDescription(rs.getString("description"));
+                newTicket.setEmployee_id(rs.getInt("employee_id"));
+                newTicket.setStatus(rs.getString("status"));
 
-    //         while (rs.next()) {
-    //             Ticket newTicket = new Ticket();
+                listOfTickets.add(newTicket);
+            }
 
-    //             newTicket.setTicket_id(rs.getInt("employeeuser_id"));
-    //             newTicket.setAmount(rs.getInt("Amount"));
-    //             newTicket.setDescription(rs.getString("Description"));
-    //             newTicket.setStatus(rs.getString("Status"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-    //             listOfTickets.add(newTicket);
-    //         }
-
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-            
-    //     }
-        
-    //     return listOfTickets;
-    // }
+        return listOfTickets;
+    }
 }

@@ -7,11 +7,11 @@ public class Ticket {
     private String description;
     private String status;
 
-    // @Override
-    // public String toString() {
-    //     return "Ticket [employee_id=" + employee_id + ", amount=" + amount + ", description=" + description + ", status="
-    //             + status + "]";
-    // }
+    @Override
+    public String toString() {
+        return "Ticket [employee_id=" + employee_id + ", amount=" + amount + ", description=" + description + ", status="
+                + status + "]";
+    }
 
     public int getEmployee_id() {
         return employee_id;

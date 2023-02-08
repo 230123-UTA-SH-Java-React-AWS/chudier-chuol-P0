@@ -33,18 +33,6 @@ public class employeeController implements HttpHandler {
         }
     }
 
-    // public void getRequest(HttpExchange exchange) throws IOException {
-    //     authService employeeService = new authService();
-
-    //     String jsonCurrentList = employeeService.getAllEmployee();
-
-    //     exchange.sendResponseHeaders(200, jsonCurrentList.getBytes().length);
-
-    //     OutputStream os = exchange.getResponseBody();
-    //     os.write(jsonCurrentList.getBytes());
-    //     os.close();
-    // }
-
     public void getRequest(HttpExchange exchange) throws IOException {
         InputStream is = exchange.getRequestBody();
 
