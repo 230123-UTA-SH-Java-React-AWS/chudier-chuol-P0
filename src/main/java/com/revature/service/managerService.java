@@ -26,5 +26,18 @@ public class managerService {
             e.printStackTrace();
         }
     }
+
+    public Manager loginManager(String currentUserJson) {
+        //collects and sends user input to the login repo
+        Manager foundUser = null;
+        try {
+            Manager currentUser = mapper.readValue(currentUserJson, Manager.class);
+
+            foundUser = repo.loginManager(currentUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return foundUser;
+    }
     
 }
