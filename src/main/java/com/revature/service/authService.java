@@ -15,7 +15,6 @@ import com.revature.repository.ticketRepository;
 
 public class authService {
    
-    private final ticketRepository ticketRepo = new ticketRepository();
     private final authRepository repo = new authRepository();
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -44,19 +43,6 @@ public class authService {
             e.printStackTrace();
         }
         return foundUser;
-    }
-
-    public void submitTicket(String ticketJson) {
-        //collects and sends input information to the ticketRepository method. 
-        try {
-            
-            Ticket newTicket = mapper.readValue(ticketJson, Ticket.class);
-
-            ticketRepo.saveTicket(newTicket);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public String getAllEmployee() {

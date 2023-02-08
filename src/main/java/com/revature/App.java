@@ -22,17 +22,10 @@ public final class App {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 
         server.createContext("/employee", new employeeController());
+        server.createContext("/employee/tickets", new ticketController());
         
         server.setExecutor(null);
         server.start();
 
-        // authRepository repo = new authRepository();
-
-        // Employee currentUser = new Employee();
-        
-        // Employee test = repo.getEmployee(currentUser);
-
-        // System.out.println(test);
-       
     }
 }

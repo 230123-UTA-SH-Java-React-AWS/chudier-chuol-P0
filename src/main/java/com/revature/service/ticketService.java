@@ -12,5 +12,16 @@ public class ticketService {
     private final ticketRepository repo = new ticketRepository();
     private final ObjectMapper mapper = new ObjectMapper();
     
-    
+    public void submitTicket(String ticketJson) {
+        //collects and sends input information to the ticketRepository method. 
+        try {
+            
+            Ticket newTicket = mapper.readValue(ticketJson, Ticket.class);
+
+            repo.saveTicket(newTicket);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
