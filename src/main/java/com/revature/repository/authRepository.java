@@ -30,9 +30,8 @@ public class authRepository {
             e.printStackTrace();
             System.out.println("Exception was thrown in the repository package agent Chudier");
         }
-            
     }
-    //do i need to convert the java object back into a string?
+    
     public Employee loginEmployee(Employee employee) {
         //retrieve user data from the database using the email and compare passwords
         String sql = "select * from employee where email = ?";
@@ -58,14 +57,14 @@ public class authRepository {
                     currentEmployee.setEmployeeid(rs.getInt("employeeid"));
                     currentEmployee.setEmail(rs.getString("email"));
                     currentEmployee.setPassword(rs.getString("password"));
+                } else if(authenticated != true) {
+                    currentEmployee = null;
                 }
-                
             } 
         } catch (Exception e) {
             e.printStackTrace();
         }
         return currentEmployee;
-        
     }
 
     public List<Employee> getAllEmployee() {

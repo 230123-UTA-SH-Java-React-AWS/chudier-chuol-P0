@@ -2,6 +2,10 @@ package com.revature.model;
 
 public class Manager extends Employee {
     
-    boolean isManager = true;
+    private String role = "Manager";
+
+    public String getRole() {
+        return role;
+    }
     
 }

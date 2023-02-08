@@ -13,11 +13,11 @@ public class Ticket {
     //             + status + "]";
     // }
 
-    public int getTicket_id() {
+    public int getEmployee_id() {
         return employee_id;
     }
 
-    public void setTicket_id(int employee_id) {
+    public void setEmployee_id(int employee_id) {
         this.employee_id = employee_id;
     }
 

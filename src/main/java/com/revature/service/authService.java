@@ -9,17 +9,20 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.revature.model.Employee;
+import com.revature.model.Ticket;
 import com.revature.repository.authRepository;
+import com.revature.repository.ticketRepository;
 
 public class authService {
    
+    private final ticketRepository ticketRepo = new ticketRepository();
     private final authRepository repo = new authRepository();
-    private final ObjectMapper map = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public void employeeRegister(String employeeJson) {
         
         try {
-            Employee newEmployee = map.readValue(employeeJson, Employee.class);
+            Employee newEmployee = mapper.readValue(employeeJson, Employee.class);
 
             repo.saveEmployee(newEmployee);
             
@@ -34,13 +37,26 @@ public class authService {
         //collects and sends user input to the login repo
         Employee foundUser = null;
         try {
-            Employee currentUser = map.readValue(currentUserJson, Employee.class);
+            Employee currentUser = mapper.readValue(currentUserJson, Employee.class);
 
             foundUser = repo.loginEmployee(currentUser);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return foundUser;
+    }
+
+    public void submitTicket(String ticketJson) {
+        //collects and sends input information to the ticketRepository method. 
+        try {
+            
+            Ticket newTicket = mapper.readValue(ticketJson, Ticket.class);
+
+            ticketRepo.saveTicket(newTicket);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String getAllEmployee() {
@@ -50,7 +66,7 @@ public class authService {
         String jsonString = "";
 
         try {
-            jsonString = map.writeValueAsString(listOfEmp);
+            jsonString = mapper.writeValueAsString(listOfEmp);
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {

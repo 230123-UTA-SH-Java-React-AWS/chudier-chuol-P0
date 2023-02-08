@@ -14,7 +14,8 @@ import com.sun.net.httpserver.HttpHandler;
 
 public class employeeController implements HttpHandler {
 
-    authService service = new authService();
+    authService employeeService = new authService();
+    ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -33,9 +34,9 @@ public class employeeController implements HttpHandler {
     }
 
     // public void getRequest(HttpExchange exchange) throws IOException {
-    //     authService service = new authService();
+    //     authService employeeService = new authService();
 
-    //     String jsonCurrentList = service.getAllEmployee();
+    //     String jsonCurrentList = employeeService.getAllEmployee();
 
     //     exchange.sendResponseHeaders(200, jsonCurrentList.getBytes().length);
 
@@ -63,7 +64,7 @@ public class employeeController implements HttpHandler {
 
         // exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);
 
-        foundUser = service.loginEmployee(textBuilder.toString());
+        foundUser = employeeService.loginEmployee(textBuilder.toString());
         
         if(foundUser == null) {
             exchange.sendResponseHeaders(403, 0);
@@ -90,12 +91,14 @@ public class employeeController implements HttpHandler {
             }
         }
 
-        // System.out.println(textBuilder.toString());
+        System.out.println(textBuilder.toString());
         
         exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);
 
         
-        service.employeeRegister(textBuilder.toString());
+        employeeService.employeeRegister(textBuilder.toString());
+
+        // employeeService.submitTicket(textBuilder.toString());
 
         OutputStream os = exchange.getResponseBody();
         os.write(textBuilder.toString().getBytes());
