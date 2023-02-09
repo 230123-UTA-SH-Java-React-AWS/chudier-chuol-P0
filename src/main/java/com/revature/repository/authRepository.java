@@ -12,33 +12,39 @@ import java.util.List;
 
 public class authRepository {
     
-    public void saveEmployee(Employee employee) {
+    public String saveEmployee(Employee employee) {
 
-        String sql = "insert into employee (email, password) values (?, ?) ";
-
-        try(Connection con = connectionUtil.getConnection()) {
+        if (!loginEmployee(employee)) {
             
-            PreparedStatement prepstmt = con.prepareStatement(sql);
+            String sql = "insert into employees (email, password) values (?, ?) ";
 
-            prepstmt.setString(1, employee.getEmail());
-            prepstmt.setString(2, employee.getPassword());
+            try(Connection con = connectionUtil.getConnection()) {
+                
+                PreparedStatement prepstmt = con.prepareStatement(sql);
 
-            prepstmt.execute();
+                prepstmt.setString(1, employee.getEmail());
+                prepstmt.setString(2, employee.getPassword());
+                prepstmt.execute();
 
-        } catch (Exception e) {
-            
-            e.printStackTrace();
-            System.out.println("Exception was thrown in the repository package agent Chudier");
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                System.out.println("Exception was thrown in the repository package agent Chudier");
+            }
+        } else {
+            return "An account is already registered with your email address";
         }
+        
+        return "You have successfully registered an account";
     }
     
-    public Employee loginEmployee(Employee employee) {
+    public boolean loginEmployee(Employee employee) {
         //retrieve user data from the database using the email and compare passwords
-        String sql = "select * from employee where email = ?";
+        boolean authenticated = false;
 
-        Employee currentEmployee = null;
+        String sql = "select * from employees where email = ?";
         
-        boolean authenticated;
+        // Employee currentEmployee = null;
 
         try (Connection con = connectionUtil.getConnection()) {
             
@@ -49,22 +55,17 @@ public class authRepository {
             ResultSet rs = prepstmt.executeQuery();
 
             while (rs.next()) {
-                authenticated = employee.getPassword().equals(rs.getString("password"));
                 
-                currentEmployee = new Employee();
+                // currentEmployee = new Employee();
 
-                if(authenticated) {
-                    currentEmployee.setEmployeeid(rs.getInt("employeeid"));
-                    currentEmployee.setEmail(rs.getString("email"));
-                    currentEmployee.setPassword(rs.getString("password"));
-                } else if(authenticated != true) {
-                    currentEmployee = null;
-                }
+                if(employee.getPassword().equals(rs.getString("password"))) {
+                    authenticated = true;
+                } 
             } 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return currentEmployee;
+        return authenticated;
     }
 
     public List<Employee> getAllEmployee() {

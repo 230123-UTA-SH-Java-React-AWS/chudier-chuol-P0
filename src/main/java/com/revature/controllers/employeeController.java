@@ -34,11 +34,12 @@ public class employeeController implements HttpHandler {
     }
 
     public void getRequest(HttpExchange exchange) throws IOException {
+        
         InputStream is = exchange.getRequestBody();
 
         StringBuilder textBuilder = new StringBuilder();
 
-        Employee foundUser = null;
+        // Employee foundUser = null;
 
         try(Reader reader = new BufferedReader(new InputStreamReader(is, Charset.forName(StandardCharsets.UTF_8.name())))) {
             int letter = 0;
@@ -50,18 +51,20 @@ public class employeeController implements HttpHandler {
 
         System.out.println(textBuilder.toString());
 
-        // exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);
-
-        foundUser = employeeService.loginEmployee(textBuilder.toString());
+        String message = "The email or password you entered is invalid";
         
-        if(foundUser == null) {
-            exchange.sendResponseHeaders(403, 0);
-        } else {
-            exchange.sendResponseHeaders(200, 0);
-        }
+        if(employeeService.loginEmployee(textBuilder.toString())!= true) {
+            
+            exchange.sendResponseHeaders(403, message.getBytes().length);
 
+        } else {
+            message = "Login was succesful";
+            exchange.sendResponseHeaders(200, message.getBytes().length);
+
+        }
+        
         OutputStream os = exchange.getResponseBody();
-        // os.write(textBuilder.toString().getBytes());
+        os.write(message.getBytes());
         os.close();
     }
 
@@ -69,7 +72,7 @@ public class employeeController implements HttpHandler {
         InputStream is = exchange.getRequestBody();
 
         StringBuilder textBuilder = new StringBuilder();
-        
+
         //converts our binary to letters
         try(Reader reader = new BufferedReader(new InputStreamReader(is, Charset.forName(StandardCharsets.UTF_8.name())))) {
             int letter = 0;
@@ -80,14 +83,16 @@ public class employeeController implements HttpHandler {
         }
 
         System.out.println(textBuilder.toString());
+
+        String registerResponse = employeeService.employeeRegister(textBuilder.toString());
         
-        exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);
+        // exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);
+        exchange.sendResponseHeaders(200, registerResponse.getBytes().length);
+        
 
         
-        employeeService.employeeRegister(textBuilder.toString());
-
         OutputStream os = exchange.getResponseBody();
-        os.write(textBuilder.toString().getBytes());
+        os.write(registerResponse.getBytes());
         os.close();
 
     }    

@@ -1,32 +1,18 @@
 package com.revature.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Employee {
     
-    private int employeeid;
+    private int id;
     private String email;
     private String password;
-
-    private List <Ticket> tickets;
-    
-    public Employee() {
-        this.tickets = new ArrayList<>();
-    }
-
-    @Override
-    public String toString() {
-        return "Employee [employeeid=" + employeeid + ", email=" + email + ", password=" + password + ", tickets="
-                + tickets + "]";
-    }
+    private String role;
 
     public int getEmployeeid() {
-        return employeeid;
+        return id;
     }
 
-    public void setEmployeeid(int employeeid) {
-        this.employeeid = employeeid;
+    public void setEmployeeid(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -44,13 +30,17 @@ public class Employee {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public List <Ticket> getTickets() {
-        return tickets;
+    
+    public String getRole() {
+        return role;
     }
 
-    public void setTickets(List <Ticket> tickets) {
-        this.tickets = tickets;
+    public void setRole(String role) {
+        this.role = role;
     }
 
+    @Override
+    public String toString() {
+        return "Employee [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + "]";
+    }
 }

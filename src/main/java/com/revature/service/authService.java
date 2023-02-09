@@ -18,23 +18,26 @@ public class authService {
     private final authRepository repo = new authRepository();
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public void employeeRegister(String employeeJson) {
+    public String employeeRegister(String employeeJson) {
+        String registered = "";
         
         try {
             Employee newEmployee = mapper.readValue(employeeJson, Employee.class);
 
-            repo.saveEmployee(newEmployee);
+            registered = repo.saveEmployee(newEmployee);
             
         } catch(JsonParseException e) {
             e.printStackTrace();
         } catch(IOException e) {
             e.printStackTrace();
         }
+
+        return registered;
     }
 
-    public Employee loginEmployee(String currentUserJson) {
+    public boolean loginEmployee(String currentUserJson) {
         //collects and sends user input to the login repo
-        Employee foundUser = null;
+        boolean foundUser = false;
         try {
             Employee currentUser = mapper.readValue(currentUserJson, Employee.class);
 

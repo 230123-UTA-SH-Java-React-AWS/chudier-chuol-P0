@@ -8,11 +8,13 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import com.revature.model.Manager;
 import com.revature.service.managerService;
+import com.revature.service.ticketService;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 public class managerController implements HttpHandler {
     
+    ticketService ticketService = new ticketService();
     managerService service = new managerService();
     ObjectMapper mapper = new ObjectMapper();
 
@@ -55,7 +57,12 @@ public class managerController implements HttpHandler {
         if(foundUser == null) {
             exchange.sendResponseHeaders(403, 0);
         } else {
-            exchange.sendResponseHeaders(200, 0);
+            //get all pending tickets 
+            String pendingTickets = ticketService.getAllTickets();
+
+            exchange.sendResponseHeaders(200, pendingTickets.getBytes().length);
+            OutputStream os = exchange.getResponseBody();
+            os.write(pendingTickets.getBytes());
         }
 
         OutputStream os = exchange.getResponseBody();
