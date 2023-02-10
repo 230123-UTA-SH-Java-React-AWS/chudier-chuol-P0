@@ -80,5 +80,24 @@ public class ticketService {
         return "Authorization denied";
     }
 
+    public String personalTickets(String tString) {
+        String personalTickets = "";
+        
+        try {
+            JsonNode jNode = mapper.readTree(tString);
+
+            if(jNode.findValue("status") == null) {
+                List<Ticket> tickets = ticketRepo.getPesonalTickets(jNode);
+                personalTickets = mapper.writeValueAsString(tickets);
+            } else {
+                List<Ticket> tickets = ticketRepo.getStatusTickets(jNode);
+                personalTickets = mapper.writeValueAsString(tickets);
+            }
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        
+        return personalTickets;
+    }
 
 }

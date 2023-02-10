@@ -87,4 +87,69 @@ public class ticketRepository {
             }
     }
 
+    public List<Ticket> getPesonalTickets(JsonNode tNode) {
+        
+        String sql = "select * from tickets where email = ?";
+
+        List<Ticket> personalTickets = new ArrayList<>();
+        
+        try (Connection con = connectionUtil.getConnection()) {
+            
+            PreparedStatement prepstmt = con.prepareStatement(sql);
+            prepstmt.setString(1, tNode.get("email").asText());
+            
+            ResultSet rs = prepstmt.executeQuery();
+
+            while (rs.next()) {
+                Ticket newTicket = new Ticket();
+                newTicket.setId(rs.getInt(1));
+                newTicket.setAmount(rs.getDouble(2));
+                newTicket.setDescription(rs.getString(3));
+                newTicket.setStatus(rs.getString(4));
+                newTicket.setEmail(rs.getString(5));
+
+                personalTickets.add(newTicket);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return personalTickets;
+    }
+
+    public List<Ticket> getStatusTickets(JsonNode tNode) {
+        
+        String sql = "select * from tickets where email = ? and status = ?";
+
+        List<Ticket> statusTickets = new ArrayList<>();
+        
+        try (Connection con = connectionUtil.getConnection()) {
+            
+            PreparedStatement prepstmt = con.prepareStatement(sql);
+            prepstmt.setString(1, tNode.get("email").asText());
+            prepstmt.setString(2, tNode.get("status").asText());
+            
+            ResultSet rs = prepstmt.executeQuery();
+
+            while (rs.next()) {
+                Ticket newTicket = new Ticket();
+                newTicket.setId(rs.getInt(1));
+                newTicket.setAmount(rs.getDouble(2));
+                newTicket.setDescription(rs.getString(3));
+                newTicket.setStatus(rs.getString(4));
+                newTicket.setEmail(rs.getString(5));
+
+                statusTickets.add(newTicket);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return statusTickets;
+    }
+
+    
+
 }
