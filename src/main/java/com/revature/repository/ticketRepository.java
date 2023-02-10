@@ -45,6 +45,8 @@ public class ticketRepository {
             
             PreparedStatement prepstmt = con.prepareStatement(sql);
 
+            prepstmt.setString(1, "PENDING");
+
             ResultSet rs = prepstmt.executeQuery();
 
             while(rs.next()) {
@@ -66,16 +68,16 @@ public class ticketRepository {
         return listOfTickets;
     }
 
-    public void updateStatus(JsonNode treeNode){
+    public void updateStatus(JsonNode statusUpdate){
         
-        String sql = "update tickets set status = ? where ticketID = ?";
+        String sql = "update tickets set status = ? where id = ?";
 
             try(Connection con = connectionUtil.getConnection()) {
                 
                 PreparedStatement prepstmt = con.prepareStatement(sql);
 
-                prepstmt.setString(1, treeNode.get("status").asText());
-                prepstmt.setInt(2, treeNode.get("ticketID").asInt());
+                prepstmt.setString(1, statusUpdate.get("status").asText());
+                prepstmt.setInt(2, statusUpdate.get("id").asInt());
 
                 prepstmt.execute();
 

@@ -14,19 +14,19 @@ import com.revature.repository.ticketRepository;
 
 public class ticketService {
     
-    private final ticketRepository repo = new ticketRepository();
+    private final ticketRepository ticketRepo = new ticketRepository();
+    private final authRepository empRepo = new authRepository();
     private final ObjectMapper mapper = new ObjectMapper();
-    private final authRepository empRep = new authRepository();
     
     public String submitTicket(String ticketJson) {
         //collects and sends input information to the ticketRepository method. 
         try {
             
             Ticket newTicket = mapper.readValue(ticketJson, Ticket.class);
-            Double i = new Double(newTicket.getAmount());
-            if (i.compareTo(new Double("0")) > 0) {
-                if (empRep.getAllEmployee().contains(newTicket.getEmail())) {
-                    repo.saveTicket(newTicket);
+            Double amount = new Double(newTicket.getAmount());
+            if (amount.compareTo(new Double("0")) > 0) {
+                if (empRepo.getAllEmployee().contains(newTicket.getEmail())) {
+                    ticketRepo.saveTicket(newTicket);
                     return "Ticket submitted succesfully";
                 } else {
                     return "Oops, you must be a registered employee to submit ticket";
@@ -39,22 +39,45 @@ public class ticketService {
         return "Wrong entry, please make sure the amount is over 0";
     }
 
-    public String getPendingTickets() {
-        List<Ticket> listOfTickets = repo.getPendingTickets();
-
-        String ticketsJson = "";
+    public String getPendingTickets(String eJson) {
+        String pendTickets = "";
 
         try {
-            ticketsJson = mapper.writeValueAsString(listOfTickets);
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            JsonNode tNode = mapper.readTree(eJson);
+            String emailJson = tNode.get("email").asText();
+
+            if (empRepo.checkManagerStatus(emailJson)) {
+                List<Ticket> listOfTickets = ticketRepo.getPendingTickets();
+                
+                pendTickets = mapper.writeValueAsString(listOfTickets);
+
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
         
-        return ticketsJson;
+        return pendTickets;
+    }
+
+    public String processTicket(String ticketJson) {
+        
+        try {
+            JsonNode jnode = mapper.readTree(ticketJson);
+
+            String nodeEmail = jnode.get("email").asText();
+
+            if(empRepo.checkManagerStatus(nodeEmail)) {
+                ticketRepo.updateStatus(jnode);
+                return "Ticket was updated by manager";
+            } else {
+                return "Oops, only a manager can update a ticket ";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return "Authorization denied";
     }
 
 

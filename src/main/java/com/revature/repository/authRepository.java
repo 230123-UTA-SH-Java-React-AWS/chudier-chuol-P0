@@ -65,15 +65,15 @@ public class authRepository {
         return authenticated;
     }
 
-    public boolean checkManagerStatus(int id){
+    public boolean checkManagerStatus(String email){
         
-        String sql = "select role from employees where id = ?";
+        String sql = "select role from employees where email = ?";
         
         try(Connection con = connectionUtil.getConnection()) {
             
             PreparedStatement prepstmt = con.prepareStatement(sql);
            
-            prepstmt.setInt(1, id);
+            prepstmt.setString(1, email);
             
             ResultSet rs = prepstmt.executeQuery();
             
