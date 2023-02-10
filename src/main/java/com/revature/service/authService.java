@@ -1,6 +1,7 @@
 package com.revature.service;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -48,23 +49,21 @@ public class authService {
         return foundUser;
     }
 
-    public String getAllEmployee() {
+    // public String getAllEmployee() {
 
-        List<Employee> listOfEmp = repo.getAllEmployee();
-    
-        String jsonString = "";
+    //     HashSet<String> listOfEmp = repo.getAllEmployee();
 
-        try {
-            jsonString = mapper.writeValueAsString(listOfEmp);
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    //     try {
+    //         listOfEmp = mapper.writeValueAsString(listOfEmp);
+    //     } catch (JsonGenerationException e) {
+    //         e.printStackTrace();
+    //     } catch (JsonMappingException e) {
+    //         e.printStackTrace();
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
  
-        return jsonString;
-    }
+    //     return listOfEmp;
+    // }
 
 }

@@ -32,7 +32,7 @@ public class ticketController implements HttpHandler {
     }
 
     public void getRequest(HttpExchange exchange) throws IOException {
-        String ticketListJson = service.getAllTickets();
+        String ticketListJson = service.getPendingTickets();
 
         exchange.sendResponseHeaders(200, ticketListJson.getBytes().length);
 
@@ -42,6 +42,8 @@ public class ticketController implements HttpHandler {
     }
 
     public void postRequest(HttpExchange exchange) throws IOException {
+        String newTicket;
+        
         InputStream is = exchange.getRequestBody();
 
         StringBuilder textBuilder = new StringBuilder();
@@ -57,12 +59,12 @@ public class ticketController implements HttpHandler {
         
         System.out.println(textBuilder.toString());
         
-        exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);
-
-        service.submitTicket(textBuilder.toString());
+        newTicket = service.submitTicket(textBuilder.toString());
+        
+        exchange.sendResponseHeaders(200, newTicket.getBytes().length);
 
         OutputStream os = exchange.getResponseBody();
-        os.write(textBuilder.toString().getBytes());
+        os.write(newTicket.getBytes());
         os.close();
     }    
 }

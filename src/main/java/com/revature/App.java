@@ -17,7 +17,7 @@ public final class App {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 
         server.createContext("/employee", new employeeController());
-        server.createContext("/employee/tickets", new ticketController());
+        server.createContext("/ticket", new ticketController());
         server.createContext("/manager", new managerController());
         
         server.setExecutor(null);

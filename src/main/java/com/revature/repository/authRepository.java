@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class authRepository {
@@ -43,8 +44,6 @@ public class authRepository {
         boolean authenticated = false;
 
         String sql = "select * from employees where email = ?";
-        
-        // Employee currentEmployee = null;
 
         try (Connection con = connectionUtil.getConnection()) {
             
@@ -55,8 +54,6 @@ public class authRepository {
             ResultSet rs = prepstmt.executeQuery();
 
             while (rs.next()) {
-                
-                // currentEmployee = new Employee();
 
                 if(employee.getPassword().equals(rs.getString("password"))) {
                     authenticated = true;
@@ -68,10 +65,37 @@ public class authRepository {
         return authenticated;
     }
 
-    public List<Employee> getAllEmployee() {
-        String sql = "select * from employee ";
+    public boolean checkManagerStatus(int id){
+        
+        String sql = "select role from employees where id = ?";
+        
+        try(Connection con = connectionUtil.getConnection()) {
+            
+            PreparedStatement prepstmt = con.prepareStatement(sql);
+           
+            prepstmt.setInt(1, id);
+            
+            ResultSet rs = prepstmt.executeQuery();
+            
+            rs.next();
+            
+            String employeeRole = rs.getString(1);
+            
+            if(employeeRole.equals("MANAGER")){
+                return true;
+            }
 
-        List<Employee> listOfEmployee = new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public HashSet<String> getAllEmployee() {
+    
+        HashSet<String> listOfEmployee = new HashSet<>();
+
+        String sql = "select * from employees ";
 
         try (Connection con = connectionUtil.getConnection()) {
             Statement stmt = con.createStatement();
@@ -79,13 +103,9 @@ public class authRepository {
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                Employee newEmployee = new Employee();
-
-                newEmployee.setEmployeeid(rs.getInt("employeeid"));
-                newEmployee.setEmail(rs.getString("email"));
-                newEmployee.setPassword(rs.getString("password"));
-
-                listOfEmployee.add(newEmployee);
+            
+                listOfEmployee.add(rs.getString(2));
+                listOfEmployee.add(rs.getString(4));
             }
             
         } catch (Exception e) {

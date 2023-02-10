@@ -3,11 +3,9 @@ package com.revature.controllers;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.revature.model.Employee;
 import com.revature.service.authService;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -38,8 +36,6 @@ public class employeeController implements HttpHandler {
         InputStream is = exchange.getRequestBody();
 
         StringBuilder textBuilder = new StringBuilder();
-
-        // Employee foundUser = null;
 
         try(Reader reader = new BufferedReader(new InputStreamReader(is, Charset.forName(StandardCharsets.UTF_8.name())))) {
             int letter = 0;
@@ -84,15 +80,13 @@ public class employeeController implements HttpHandler {
 
         System.out.println(textBuilder.toString());
 
-        String registerResponse = employeeService.employeeRegister(textBuilder.toString());
+        employeeService.employeeRegister(textBuilder.toString());
         
-        // exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);
-        exchange.sendResponseHeaders(200, registerResponse.getBytes().length);
         
-
+        exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);
         
         OutputStream os = exchange.getResponseBody();
-        os.write(registerResponse.getBytes());
+        os.write(textBuilder.toString().getBytes());
         os.close();
 
     }    

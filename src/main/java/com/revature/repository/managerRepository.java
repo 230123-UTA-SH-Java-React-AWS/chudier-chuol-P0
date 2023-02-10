@@ -11,7 +11,7 @@ public class managerRepository {
     
     public void saveManager(Manager manager) {
 
-        String sql = "insert into manager (email, password) values (?, ?)";
+        String sql = "insert into employees (email, password) values (?, ?)";
 
         try(Connection con = connectionUtil.getConnection()) {
             

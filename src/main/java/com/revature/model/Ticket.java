@@ -2,30 +2,25 @@ package com.revature.model;
 
 public class Ticket {
     
-    private int employee_id;
-    private int amount;
+    private int id;
+    private double amount;
     private String description;
     private String status;
+    private String email;
 
-    @Override
-    public String toString() {
-        return "Ticket [employee_id=" + employee_id + ", amount=" + amount + ", description=" + description + ", status="
-                + status + "]";
+    public int getId() {
+        return id;
     }
 
-    public int getEmployee_id() {
-        return employee_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
-    }
-
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -43,6 +38,14 @@ public class Ticket {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

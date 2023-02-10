@@ -27,48 +27,48 @@ public class managerController implements HttpHandler {
                 postRequest(exchange);
                 break;
             case "GET":
-                getRequest(exchange);
+                // getRequest(exchange);
                 break;
             default:
         }
     }
 
-    public void getRequest(HttpExchange exchange) throws IOException {
-        InputStream is = exchange.getRequestBody();
+    // public void getRequest(HttpExchange exchange) throws IOException {
+    //     InputStream is = exchange.getRequestBody();
 
-        StringBuilder textBuilder = new StringBuilder();
+    //     StringBuilder textBuilder = new StringBuilder();
 
-        Manager foundUser = null;
+    //     Manager foundUser = null;
 
-        try(Reader reader = new BufferedReader(new InputStreamReader(is, Charset.forName(StandardCharsets.UTF_8.name())))) {
-            int letter = 0;
+    //     try(Reader reader = new BufferedReader(new InputStreamReader(is, Charset.forName(StandardCharsets.UTF_8.name())))) {
+    //         int letter = 0;
 
-            while ((letter = reader.read()) != -1) {
-                textBuilder.append((char)letter);
-            }
-        }
+    //         while ((letter = reader.read()) != -1) {
+    //             textBuilder.append((char)letter);
+    //         }
+    //     }
 
-        System.out.println(textBuilder.toString());
+    //     System.out.println(textBuilder.toString());
 
-        // exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);
+    //     // exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);
 
-        foundUser = service.loginManager(textBuilder.toString());
+    //     foundUser = service.loginManager(textBuilder.toString());
         
-        if(foundUser == null) {
-            exchange.sendResponseHeaders(403, 0);
-        } else {
-            //get all pending tickets 
-            String pendingTickets = ticketService.getAllTickets();
+    //     if(foundUser == null) {
+    //         exchange.sendResponseHeaders(403, 0);
+    //     } else {
+    //         //get all pending tickets 
+    //         String pendingTickets = ticketService.getAllTickets();
 
-            exchange.sendResponseHeaders(200, pendingTickets.getBytes().length);
-            OutputStream os = exchange.getResponseBody();
-            os.write(pendingTickets.getBytes());
-        }
+    //         exchange.sendResponseHeaders(200, pendingTickets.getBytes().length);
+    //         OutputStream os = exchange.getResponseBody();
+    //         os.write(pendingTickets.getBytes());
+    //     }
 
-        OutputStream os = exchange.getResponseBody();
-        // os.write(textBuilder.toString().getBytes());
-        os.close();
-    }
+    //     OutputStream os = exchange.getResponseBody();
+    //     // os.write(textBuilder.toString().getBytes());
+    //     os.close();
+    // }
 
     public void postRequest(HttpExchange exchange) throws IOException {
         InputStream is = exchange.getRequestBody();
