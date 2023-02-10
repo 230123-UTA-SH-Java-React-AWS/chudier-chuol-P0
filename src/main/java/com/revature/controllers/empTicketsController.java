@@ -6,8 +6,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.revature.repository.authRepository;
-import com.revature.repository.ticketRepository;
 import com.revature.service.ticketService;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;

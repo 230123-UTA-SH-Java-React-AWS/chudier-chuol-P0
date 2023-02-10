@@ -23,6 +23,7 @@ public class ticketService {
         try {
             
             Ticket newTicket = mapper.readValue(ticketJson, Ticket.class);
+            
             Double amount = new Double(newTicket.getAmount());
             if (amount.compareTo(new Double("0")) > 0) {
                 if (empRepo.getAllEmployee().contains(newTicket.getEmail())) {

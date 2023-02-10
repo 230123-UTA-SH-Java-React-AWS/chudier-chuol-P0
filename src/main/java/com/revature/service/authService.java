@@ -1,18 +1,13 @@
 package com.revature.service;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
 
-import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.revature.model.Employee;
-import com.revature.model.Ticket;
 import com.revature.repository.authRepository;
-import com.revature.repository.ticketRepository;
+
 
 public class authService {
    
