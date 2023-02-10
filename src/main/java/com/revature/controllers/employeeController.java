@@ -80,13 +80,13 @@ public class employeeController implements HttpHandler {
 
         System.out.println(textBuilder.toString());
 
-        employeeService.employeeRegister(textBuilder.toString());
+        String registered = employeeService.employeeRegister(textBuilder.toString());
         
         
-        exchange.sendResponseHeaders(200, textBuilder.toString().getBytes().length);
+        exchange.sendResponseHeaders(200, registered.getBytes().length);
         
         OutputStream os = exchange.getResponseBody();
-        os.write(textBuilder.toString().getBytes());
+        os.write(registered.getBytes());
         os.close();
 
     }    
