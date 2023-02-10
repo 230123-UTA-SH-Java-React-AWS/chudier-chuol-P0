@@ -20,7 +20,7 @@ public final class App {
         server.createContext("/ticket", new ticketController());
         server.createContext("/employee/tickets", new empTicketsController());
 
-        server.createContext("/manager", new managerController());
+        // server.createContext("/manager", new managerController());
         
         server.setExecutor(null);
         server.start();
